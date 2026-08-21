@@ -10,7 +10,7 @@ folder and ask what you agreed to.
 The audio never goes to a transcription service. It goes to a private bucket on your own
 Supabase account, and your own Mac does the transcription locally with Whisper.
 
-<!-- TODO: photo of the device on a desk -->
+![The desk recorder](docs/images/device.jpg)
 
 ## What you need
 
@@ -141,6 +141,5 @@ Apache-2.0 and stays under its own licence.
 Transcription is [whisper.cpp](https://github.com/ggml-org/whisper.cpp). Hardware and demo
 sources are Waveshare's.
 
-Built by **Vibe Hardware Club**.
-
-<!-- TODO Fish: Skool group URL --> · <!-- TODO Fish: reels link -->
+Built by **[Vibe Hardware Club](https://www.vibehardwareclub.com)** - a free group for people
+who want to build physical things. If you got this far, that is where the rest of it happens.
