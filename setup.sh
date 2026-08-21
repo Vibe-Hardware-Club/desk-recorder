@@ -95,7 +95,12 @@ for a in d.get('assets',[]):
   tar -xzf "$BIN/esptool.tar.gz" -C "$BIN" || die "Could not unpack esptool."
   FOUND=$(find "$BIN" -type f -name esptool -perm -u+x | head -1)
   [ -n "$FOUND" ] || die "esptool binary not found after unpacking."
-  [ "$FOUND" = "$BIN/esptool" ] || cp "$FOUND" "$BIN/esptool"
+  if [ "$FOUND" != "$BIN/esptool" ]; then
+    cp "$FOUND" "$BIN/esptool"
+    # The binary is self-contained (verified by running the copy away from its
+    # siblings), so the unpacked directory is 27MB of duplication.
+    rm -rf "$(dirname "$FOUND")"
+  fi
   rm -f "$BIN/esptool.tar.gz"
 fi
 
