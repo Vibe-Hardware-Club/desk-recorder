@@ -1,0 +1,12 @@
+# One topic per line. These are what the dial shows and what your transcript
+# folders get named. Lines starting with # are ignored.
+#
+# Change this file, run ./update-topics.sh, then hold the dial down on the
+# device for a second to pull in the new list. It will not change until you do.
+#
+# Maximum 24. Keep them short: the screen is round and long names get small.
+
+Work
+Personal
+Ideas
+Calls

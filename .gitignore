@@ -1,0 +1,17 @@
+# PlatformIO build output. Hundreds of megabytes, and the .map files carry
+# local absolute paths.
+.pio/
+**/.pio/
+
+# Written by deploy.sh from your token and your topics. Machine-specific, and
+# the token hash is yours.
+server/generated.ts
+
+# Never. Credentials do not live in this repo, they live on your device and in
+# ~/.desk-recorder/.
+*.env
+.env*
+config.h
+**/src/config.h
+
+.DS_Store
