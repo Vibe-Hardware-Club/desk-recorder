@@ -74,9 +74,9 @@ Personal
 Book notes
 ```
 
-Then **hold the dial down for a second** on the device to pull in the new list. It will not
-change until you do, because the list is cached on the card so the device still works when
-your WiFi is down.
+Then **power the device off and on again**. It fetches the list at boot and caches it to the SD
+card, so the screen keeps showing the old topics until you restart it. That cache is what lets
+the device boot with a working dial when your WiFi is down.
 
 ## How it fits together
 
