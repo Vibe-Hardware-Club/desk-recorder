@@ -7,6 +7,13 @@
 # the token hash is yours.
 server/generated.ts
 
+# Dropped into src/ by the pioarduino build itself, not written by hand.
+**/src/idf_component.yml
+
+# Scratch state the Supabase CLI writes into whatever directory it is run from.
+# It records which project you last touched, which is nobody else's business.
+supabase/.temp/
+
 # Never. Credentials do not live in this repo, they live on your device and in
 # ~/.desk-recorder/.
 *.env

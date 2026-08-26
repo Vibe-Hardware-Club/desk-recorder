@@ -64,6 +64,24 @@ It reports lengths only, never values. `ready yes` means it has everything it ne
 
 ## The backend
 
+### The Supabase CLI
+
+`setup.sh` installs it from Homebrew and signs you in. By hand:
+
+```bash
+brew install supabase/tap/supabase
+supabase login
+```
+
+There is no "am I signed in" command. The test is whether a real call answers:
+
+```bash
+supabase projects list --output json
+```
+
+Signed out, that prints nothing on stdout and complains on stderr, and both `setup.sh` and
+`deploy.sh` stop there and tell you to sign in. Signed in, you get your projects as JSON.
+
 ### Deploying by hand
 
 ```bash

@@ -22,6 +22,7 @@ Supabase account, and your own Mac does the transcription locally with Whisper.
 | A Mac | macOS only. The background worker uses launchd |
 | Homebrew | Required. See below |
 | A Supabase account | Free tier is plenty. The installer walks you through it |
+| The Supabase CLI | Installed for you. You sign in to it once, in a browser, when the installer asks |
 | Google Drive for Desktop | Optional. Transcripts go there if you have it, a local folder if not |
 
 **Homebrew is a real prerequisite, not a nicety.** Transcription uses whisper.cpp, and its
@@ -37,7 +38,7 @@ Everything else is free. The only cost is the board.
 Plug the board into your Mac, then:
 
 ```
-git clone https://github.com/ORG/desk-recorder.git
+git clone https://github.com/Vibe-Hardware-Club/desk-recorder.git
 cd desk-recorder
 ./setup.sh
 ```

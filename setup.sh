@@ -49,10 +49,11 @@ It is the standard package manager for macOS and takes a few minutes."
 fi
 step "homebrew present"
 
-for pkg in ffmpeg whisper-cpp; do
+for pkg in ffmpeg whisper-cpp supabase/tap/supabase; do
   case "$pkg" in
     ffmpeg)      have=ffmpeg ;;
     whisper-cpp) have=whisper-cli ;;
+    */supabase)  have=supabase ;;
   esac
   if command -v "$have" >/dev/null; then
     step "$pkg already installed"
@@ -61,6 +62,31 @@ for pkg in ffmpeg whisper-cpp; do
     brew install "$pkg" || die "Could not install $pkg. Try 'brew install $pkg' on its own to see why."
   fi
 done
+
+# ---- signing in to Supabase ------------------------------------------------
+# Step 4 deploys your backend with this CLI, and it can only do that signed in.
+# Checked HERE, ten seconds in, rather than at step 4 - which is on the far side
+# of a 488MB download, and a failure there wastes it.
+#
+# There is no "am I signed in" command, so the probe is a real API call. Signed
+# out, the CLI writes its complaint to stderr and stdout stays empty, so what is
+# tested is whether anything that looks like JSON came back.
+PROBE=$(supabase projects list --output json 2>/dev/null || true)
+case "$PROBE" in
+  \[*|\{*) step "supabase account signed in" ;;
+  *)
+    echo
+    echo "  The Supabase CLI needs to sign in to your account. This opens a browser."
+    printf "  Press Enter to sign in. "
+    read -r _
+    supabase login || die "Sign-in failed. Run 'supabase login' on its own to see why, then run this again."
+    PROBE=$(supabase projects list --output json 2>/dev/null || true)
+    case "$PROBE" in
+      \[*|\{*) step "supabase account signed in" ;;
+      *) die "Still signed out. Run 'supabase login' on its own, then run this again." ;;
+    esac ;;
+esac
+unset PROBE
 
 # ---- the speech model ------------------------------------------------------
 if [ -s "$MODEL" ]; then

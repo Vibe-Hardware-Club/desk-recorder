@@ -25,6 +25,20 @@ command -v supabase >/dev/null || {
   exit 1
 }
 
+# Installed but signed out is the more likely of the two, and on its own the CLI
+# reports it as a deploy failure several steps further down, by which point a
+# token has been generated and generated.ts written. Catch it first.
+PROBE=$(supabase projects list --output json 2>/dev/null || true)
+case "$PROBE" in
+  \[*|\{*) ;;
+  *)
+    echo "The Supabase CLI is installed but not signed in to your account."
+    echo "  supabase login"
+    echo "Then run this again."
+    exit 1 ;;
+esac
+unset PROBE
+
 PROJECT_REF="${KNOB_PROJECT_REF:-}"
 if [ -z "$PROJECT_REF" ]; then
   printf "Supabase project ref (the subdomain in your project URL): "
@@ -161,9 +175,29 @@ else
     -d "{\"name\":\"$BUCKET\",\"id\":\"$BUCKET\",\"public\":false}")
   case "$CODE" in
     200|201) echo "Bucket '$BUCKET' created, private." ;;
-    409)     echo "Bucket '$BUCKET' already exists." ;;
-    *)       echo "Bucket check returned HTTP $CODE. Create it by hand if uploads fail:"
-             echo "  Supabase dashboard > Storage > New bucket, name $BUCKET, public OFF" ;;
+    *)
+      # Everything else, including the ordinary case of the bucket already being
+      # there. Storage answers a duplicate with HTTP 400 and puts "statusCode":
+      # "409" INSIDE the body, so the HTTP code on its own cannot tell "already
+      # yours" from "something broke". Guessing it wrong matters: re-running this
+      # script is the documented way to change your topics, so a false alarm here
+      # fires every single time anyone edits topics.txt. So ask the bucket.
+      GOT=$(curl -s --max-time 30 \
+        "https://$PROJECT_REF.supabase.co/storage/v1/bucket/$BUCKET" \
+        -H "apikey: $SRK" -H "Authorization: Bearer $SRK")
+      case "$GOT" in
+        *"\"name\":\"$BUCKET\""*)
+          case "$GOT" in
+            *'"public":true'*)
+              echo "Bucket '$BUCKET' exists but is PUBLIC, and these are recordings of"
+              echo "your conversations. Make it private:"
+              echo "  Supabase dashboard > Storage > $BUCKET > Settings, public OFF" ;;
+            *) echo "Bucket '$BUCKET' already exists, private." ;;
+          esac ;;
+        *)
+          echo "Bucket check returned HTTP $CODE. Create it by hand if uploads fail:"
+          echo "  Supabase dashboard > Storage > New bucket, name $BUCKET, public OFF" ;;
+      esac ;;
   esac
 fi
 unset SRK

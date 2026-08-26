@@ -1,8 +1,9 @@
 # One topic per line. These are what the dial shows and what your transcript
 # folders get named. Lines starting with # are ignored.
 #
-# Change this file, run ./update-topics.sh, then hold the dial down on the
-# device for a second to pull in the new list. It will not change until you do.
+# Change this file, run ./server/deploy.sh, then power the device off and on
+# again. It fetches this list at boot and caches it to the SD card, so the
+# screen keeps showing the old topics until you restart it.
 #
 # Maximum 24. Keep them short: the screen is round and long names get small.
 
