@@ -137,7 +137,7 @@ can do it by hand.
 ## Credits and licence
 
 MIT, except `firmware/knob/src/esp_lcd_sh8601.*`, which is Espressif's display driver under
-Apache-2.0 and stays under its own licence.
+Apache-2.0 and stays under its own licence. Details in [NOTICE](NOTICE).
 
 Transcription is [whisper.cpp](https://github.com/ggml-org/whisper.cpp). Hardware and demo
 sources are Waveshare's.

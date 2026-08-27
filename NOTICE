@@ -1,0 +1,23 @@
+Third-party code in this project
+================================
+
+The MIT licence in LICENSE covers this project's own code. Two files come from
+Espressif and stay under their own licence:
+
+  firmware/knob/src/esp_lcd_sh8601.c
+  firmware/knob/src/esp_lcd_sh8601.h
+
+    SPDX-FileCopyrightText: 2023 Espressif Systems (Shanghai) CO LTD
+    SPDX-License-Identifier: Apache-2.0
+
+A full copy of the Apache License 2.0 is in LICENSES/Apache-2.0.txt, as section
+4(a) of that licence requires when the work is redistributed.
+
+This note lives here rather than at the bottom of LICENSE because appending to
+LICENSE stops GitHub recognising the file as MIT: it matches the text against
+known licences, and the extra paragraphs drop it below the threshold. The repo
+then reports its licence as "Other", which is worse for anyone trying to work
+out whether they can use this.
+
+Transcription is whisper.cpp (https://github.com/ggml-org/whisper.cpp).
+Hardware and demo sources are Waveshare's.

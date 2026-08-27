@@ -19,20 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
--------------------------------------------------------------------------------
-Third-party code
--------------------------------------------------------------------------------
-
-The MIT licence above covers this project's own code. Two files come from
-Espressif and stay under their own licence:
-
-  firmware/knob/src/esp_lcd_sh8601.c
-  firmware/knob/src/esp_lcd_sh8601.h
-
-    SPDX-FileCopyrightText: 2023 Espressif Systems (Shanghai) CO LTD
-    SPDX-License-Identifier: Apache-2.0
-
-A full copy of the Apache License 2.0 is in LICENSES/Apache-2.0.txt, as that
-licence requires.
